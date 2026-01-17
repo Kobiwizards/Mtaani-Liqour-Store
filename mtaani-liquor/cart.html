@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Mtaani Liquor Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/wine-glass.png">
+    <style>
+        /* Cart Page Specific Styles */
+        .page-header {
+            background: linear-gradient(rgba(26, 35, 126, 0.9), rgba(13, 20, 64, 0.9)), 
+                        url('https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--light-color);
+            padding: 140px 0 80px;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cart-section {
+            padding: 3rem 0 5rem;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+        }
+
+        .cart-items {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .cart-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+        }
+
+        .btn-clear {
+            background-color: transparent;
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-clear:hover {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-cart i {
+            font-size: 4rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-cart h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--gray-dark);
+        }
+
+        .empty-cart p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            gap: 1.5rem;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .cart-item-price {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            background-color: var(--gray-light);
+            border: none;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 36px;
+            border: none;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .remove-item {
+            background-color: transparent;
+            border: none;
+            color: var(--danger-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .remove-item:hover {
+            color: #d32f2f;
+        }
+
+        .cart-summary {
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .summary-details {
+            margin-bottom: 2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .summary-row.total {
+            border-bottom: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            padding-top: 1.2rem;
+        }
+
+        .till-highlight-card {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .till-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .till-header i {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+
+        .till-header h3 {
+            font-size: 1.3rem;
+        }
+
+        .till-number-large {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .till-number-large span {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .till-number-large h2 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+        }
+
+        .payment-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .step-number {
+            background-color: var(--accent-color);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Delivery Form */
+        .delivery-form h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+        }
+
+        .form-group.checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .form-group.checkbox input {
+            width: auto;
+            margin-top: 0.3rem;
+        }
+
+        .form-group.checkbox label {
+            font-weight: normal;
+            font-size: 0.95rem;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-block i {
+            margin-right: 0.5rem;
+        }
+
+        .form-note {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: rgba(68, 138, 255, 0.1);
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+        }
+
+        .form-note i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+
+        /* Payment Banner */
+        .payment-banner {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .banner-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+        }
+
+        .banner-text {
+            flex: 1;
+        }
+
+        .banner-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .banner-text p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+        }
+
+        .banner-till {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+        }
+
+        .banner-till span {
+            display: block;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.3rem;
+        }
+
+        .banner-till h3 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+
+        /* Responsive Cart */
+        @media (max-width: 992px) {
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cart-section {
+                padding: 2rem 0 3rem;
+            }
+            
+            .cart-items,
+            .summary-card {
+                padding: 1.5rem;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .cart-item-image {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .cart-item-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .banner-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-wine-glass-alt"></i>
+                    <span>Mtaani Liquor</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <div class="phone-number">
+                        <i class="fas fa-phone"></i>
+                        <span>0768 918 899</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Cart Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Your Delivery Cart</h1>
+            <p>Review your items and provide delivery details</p>
+        </div>
+    </section>
+
+    <!-- Cart Content -->
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-layout">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    <div class="cart-header">
+                        <h2>Selected Items</h2>
+                        <button id="clear-cart" class="btn-clear">Clear All</button>
+                    </div>
+                    
+                    <div id="cart-items-container">
+                        <!-- Cart items will be loaded by JavaScript -->
+                        <div class="empty-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Your cart is empty</h3>
+                            <p>Add some products from our store to get started</p>
+                            <a href="products.html" class="btn btn-primary">Browse Products</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Summary & Checkout -->
+                <div class="cart-summary">
+                    <div class="summary-card">
+                        <h2>Order Summary</h2>
+                        
+                        <div class="summary-details">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="cart-subtotal">KES 0</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Delivery Fee</span>
+                                <span>KES 200</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total Amount</span>
+                                <span id="cart-total">KES 0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="till-highlight-card">
+                            <div class="till-header">
+                                <i class="fas fa-mobile-alt"></i>
+                                <h3>Pay via M-Pesa</h3>
+                            </div>
+                            <div class="till-number-large">
+                                <span>M-Pesa Instructions:</span>
+                                <h2>Paybill: 453988</h2>
+                                <p>Account: Your Full Name</p>
+                            </div>
+                            <div class="payment-steps">
+                                <div class="step">
+                                    <span class="step-number">1</span>
+                                    <p>Fill delivery details below</p>
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">2</span>
+                                    <p>M-Pesa → Paybill: <strong>453988</strong></p>
+                                    <p>Account: <strong>Your Name</strong></p>
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">3</span>
+                                    <p>We'll call to confirm delivery</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Delivery Form -->
+                        <form id="delivery-form" class="delivery-form">
+                            <h3>Delivery Information</h3>
+                            
+                            <div class="form-group">
+                                <label for="customer-name">Full Name *</label>
+                                <input type="text" id="customer-name" name="name" required placeholder="John Mwangi">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-phone">Phone Number *</label>
+                                <input type="tel" id="customer-phone" name="phone" required placeholder="0768 918 899">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-email">Email Address</label>
+                                <input type="email" id="customer-email" name="email" placeholder="john@example.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="delivery-address">Delivery Address *</label>
+                                <textarea id="delivery-address" name="address" required rows="3" placeholder="House No, Street, Area, Mwihoko"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="delivery-time">Preferred Delivery Time</label>
+                                <select id="delivery-time" name="delivery-time">
+                                    <option value="asap">As Soon As Possible</option>
+                                    <option value="morning">Morning (9AM - 12PM)</option>
+                                    <option value="afternoon">Afternoon (12PM - 5PM)</option>
+                                    <option value="evening">Evening (5PM - 9PM)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="special-instructions">Special Instructions</label>
+                                <textarea id="special-instructions" name="instructions" rows="2" placeholder="Any special delivery notes..."></textarea>
+                            </div>
+                            
+                            <div class="form-group checkbox">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <label for="terms">I confirm that I am 18+ years old and agree to the terms of service</label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block" id="submit-order">
+                                <i class="fas fa-paper-plane"></i> Submit Order Request
+                            </button>
+                            
+                            <p class="form-note">
+                                <i class="fas fa-info-circle"></i> After submitting, you'll receive a confirmation. Our team will call you within 30 minutes to verify payment and confirm delivery.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Info Banner -->
+    <section class="payment-banner">
+        <div class="container">
+            <div class="banner-content">
+                <div class="banner-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="banner-text">
+                    <h3>Pay via M-Pesa</h3>
+                    <p>Use Paybill <strong>453988</strong> and Account Name: <strong>Your Full Name</strong></p>
+                </div>
+                <div class="banner-till">
+                    <span>Paybill</span>
+                    <h3>453988</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-wine-glass-alt"></i>
+                        <span>Mtaani Liquor Store</span>
+                    </div>
+                    <p class="footer-about">
+                        Premium liquor store serving Mwihoko with the finest selection of spirits, whiskey, wine and beers. Fast delivery available.
+                    </p>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-phone"></i> 0768 918 899</p>
+                        <p><i class="fas fa-envelope"></i> orders@mtaaniliquor.co.ke</p>
+                        <p><i class="fas fa-map-marker-alt"></i> PO Box 7145-00300 Nairobi</p>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="products.html?category=whiskey">Whiskey</a></li>
+                        <li><a href="products.html?category=spirits">Spirits</a></li>
+                        <li><a href="products.html?category=gin">Gin</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Store Locations</h3>
+                    <div class="location">
+                        <h4>Kizito Road Branch</h4>
+                        <p>Along Kizito Road, Mwihoko</p>
+                        <p>Open: 9AM - 10PM Daily</p>
+                    </div>
+                    <div class="location">
+                        <h4>160 Road Branch</h4>
+                        <p>160 Road, Mwihoko</p>
+                        <p>Open: 9AM - 11PM Fri-Sun</p>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Payment Info</h3>
+                    <div class="payment-info">
+                        <div class="till-highlight">
+                            <i class="fas fa-mobile-alt"></i>
+                            <div>
+                                <p>M-Pesa Paybill</p>
+                                <h4>453988</h4>
+                                <p>Account: Your Name</p>
+                            </div>
+                        </div>
+                        <p class="payment-note">Complete your order by paying via M-Pesa. Our team will call to confirm delivery.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Mtaani Liquor Store. All rights reserved.</p>
+                <p class="footer-note">Drink Responsibly. Must be 18+ to purchase alcohol.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Notification -->
+    <div id="cart-notification" class="cart-notification">
+        <span>Item added to cart!</span>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Cart Page Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load cart page content
+            loadCartPage();
+            setupFormSubmission();
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    this.querySelector('i').classList.toggle('fa-bars');
+                    this.querySelector('i').classList.toggle('fa-times');
+                });
+            }
+        });
+        
+        // Cart functions (same as in main.js)
+        function getCart() {
+            const cart = localStorage.getItem('mtaaniCart');
+            return cart ? JSON.parse(cart) : [];
+        }
+        
+        function saveCart(cart) {
+            localStorage.setItem('mtaaniCart', JSON.stringify(cart));
+        }
+        
+        function updateCartCount() {
+            const cart = getCart();
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(element => {
+                element.textContent = totalItems;
+                element.style.display = totalItems > 0 ? 'flex' : 'none';
+            });
+        }
+        
+        function removeFromCart(productId) {
+            let cart = getCart();
+            cart = cart.filter(item => item.id !== productId);
+            saveCart(cart);
+            updateCartCount();
+            loadCartPage();
+        }
+        
+        function updateCartQuantity(productId, quantity) {
+            if (quantity < 1) {
+                removeFromCart(productId);
+                return;
+            }
+            
+            const cart = getCart();
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                item.quantity = quantity;
+                saveCart(cart);
+                updateCartCount();
+                loadCartPage();
+            }
+        }
+        
+        function clearCart() {
+            localStorage.removeItem('mtaaniCart');
+            updateCartCount();
+            loadCartPage();
+        }
+        
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-KE', {
+                style: 'currency',
+                currency: 'KES',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+        
+        // Load cart page content
+        function loadCartPage() {
+            const cart = getCart();
+            const cartContainer = document.getElementById('cart-items-container');
+            const subtotalElement = document.getElementById('cart-subtotal');
+            const totalElement = document.getElementById('cart-total');
+            
+            if (!cartContainer) return;
+            
+            // Clear cart button
+            const clearCartBtn = document.getElementById('clear-cart');
+            if (clearCartBtn) {
+                clearCartBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to clear your cart?')) {
+                        clearCart();
+                    }
+                });
+            }
+            
+            // If cart is empty
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some products from our store to get started</p>
+                        <a href="products.html" class="btn btn-primary">Browse Products</a>
+                    </div>
+                `;
+                
+                if (subtotalElement) subtotalElement.textContent = formatCurrency(0);
+                if (totalElement) totalElement.textContent = formatCurrency(200);
+                
+                // Disable form if cart is empty
+                const submitBtn = document.getElementById('submit-order');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Cart is Empty';
+                }
+                
+                return;
+            }
+            
+            // Calculate totals
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = 200;
+            const total = subtotal + deliveryFee;
+            
+            // Update totals display
+            if (subtotalElement) subtotalElement.textContent = formatCurrency(subtotal);
+            if (totalElement) totalElement.textContent = formatCurrency(total);
+            
+            // Display cart items
+            cartContainer.innerHTML = cart.map(item => `
+                <div class="cart-item" data-id="${item.id}">
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <h3 class="cart-item-title">${item.name}</h3>
+                        <div class="cart-item-price">${formatCurrency(item.price)}</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" onclick="updateCartQuantity(${item.id}, ${item.quantity - 1})">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                            <button class="quantity-btn plus" onclick="updateCartQuantity(${item.id}, ${item.quantity + 1})">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart(${item.id})" title="Remove item">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Enable submit button
+            const submitBtn = document.getElementById('submit-order');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order Request';
+            }
+        }
+        
+        // Setup form submission
+        function setupFormSubmission() {
+            const deliveryForm = document.getElementById('delivery-form');
+            if (!deliveryForm) return;
+            
+            deliveryForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get cart data
+                const cart = getCart();
+                if (cart.length === 0) {
+                    alert('Your cart is empty. Please add items before submitting.');
+                    return;
+                }
+                
+                // Get form data
+                const formData = {
+                    name: document.getElementById('customer-name').value,
+                    phone: document.getElementById('customer-phone').value,
+                    email: document.getElementById('customer-email').value || 'Not provided',
+                    address: document.getElementById('delivery-address').value,
+                    deliveryTime: document.getElementById('delivery-time').value,
+                    instructions: document.getElementById('special-instructions').value || 'None',
+                    cart: cart,
+                    subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                    deliveryFee: 200,
+                    total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 200,
+                    orderDate: new Date().toLocaleString('en-KE'),
+                    orderId: 'MTN-' + Date.now().toString().slice(-8)
+                };
+                
+                // Validate form
+                if (!formData.name || !formData.phone || !formData.address) {
+                    alert('Please fill in all required fields (Name, Phone, Address).');
+                    return;
+                }
+                
+                // Phone validation (basic)
+                const phoneRegex = /^[0-9\-\+\s\(\)]{10,}$/;
+                if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
+                    alert('Please enter a valid phone number.');
+                    return;
+                }
+                
+                // Show confirmation
+                if (confirm('Are you ready to submit your order? Please ensure you have paid via M-Pesa Paybill 453988.')) {
+                    // Save order to localStorage
+                    saveOrder(formData);
+                    
+                    // Clear cart
+                    clearCart();
+                    
+                    // Redirect to confirmation page
+                    window.location.href = 'order-confirmation.html?order=' + encodeURIComponent(JSON.stringify(formData));
+                }
+            });
+        }
+        
+        // Save order to localStorage (for demo purposes)
+        function saveOrder(orderData) {
+            // In a real app, this would be sent to a backend server
+            const orders = JSON.parse(localStorage.getItem('mtaaniOrders') || '[]');
+            orders.push(orderData);
+            localStorage.setItem('mtaaniOrders', JSON.stringify(orders));
+            
+            // Also store the latest order for confirmation page
+            localStorage.setItem('latestOrder', JSON.stringify(orderData));
+        }
+    </script>
+</body>
+</html>

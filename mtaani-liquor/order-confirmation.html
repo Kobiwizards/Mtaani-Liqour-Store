@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | Mtaani Liquor Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/wine-glass.png">
+    <style>
+        .confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .confirmation-content {
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.4s ease;
+            position: relative;
+        }
+        
+        .confirmation-icon {
+            font-size: 4rem;
+            color: var(--success-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .confirmation-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+        
+        .confirmation-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .phone-call-animation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .phone-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            animation: ring 2s infinite;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes ring {
+            0%, 100% { transform: rotate(0); }
+            10%, 30%, 50%, 70%, 90% { transform: rotate(-10deg); }
+            20%, 40%, 60%, 80% { transform: rotate(10deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-wine-glass-alt"></i>
+                    <span>Mtaani Liquor</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <div class="phone-number">
+                        <i class="fas fa-phone"></i>
+                        <span>0768 918 899</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Confirmation Modal (Shows automatically) -->
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="confirmation-content">
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Order Placed Successfully!</h2>
+            
+            <div class="phone-call-animation">
+                <i class="fas fa-phone phone-icon"></i>
+                <span style="font-weight: 600; color: var(--primary-dark);">Waiting for call...</span>
+            </div>
+            
+            <p><strong>Wait for our phone call shortly.</strong> We will call you within 30 minutes to confirm your payment and delivery details.</p>
+            
+            <div style="background-color: #f8f9fa; padding: 1.5rem; border-radius: var(--border-radius); margin: 1.5rem 0;">
+                <p style="margin-bottom: 0.5rem; font-size: 0.9rem;">If you haven't paid yet:</p>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+                    <i class="fas fa-money-check-alt" style="color: var(--accent-color);"></i>
+                    <div>
+                        <p style="margin: 0; font-size: 0.9rem;">Till Number</p>
+                        <h3 style="margin: 0; color: var(--primary-dark);">973528</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" onclick="closeModal()">
+                Continue to Order Details
+            </button>
+        </div>
+    </div>
+
+    <!-- Confirmation Content -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Order Confirmation</h1>
+            <p>Thank you for your order with Mtaani Liquor Store</p>
+        </div>
+    </section>
+
+    <section class="confirmation-section">
+        <div class="container">
+            <div class="confirmation-card">
+                <div class="confirmation-header">
+                    <div class="confirmation-status">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h2>Order Received</h2>
+                            <p>Your order has been successfully submitted</p>
+                        </div>
+                    </div>
+                    <div class="order-id">
+                        <span>Order ID:</span>
+                        <h3 id="orderId">MTN-12345678</h3>
+                    </div>
+                </div>
+                
+                <div class="confirmation-body">
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div id="orderItems">
+                            <!-- Order items will be loaded by JavaScript -->
+                        </div>
+                        <div class="order-totals">
+                            <div class="total-row">
+                                <span>Subtotal</span>
+                                <span id="orderSubtotal">KES 0</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Delivery Fee</span>
+                                <span>KES 200</span>
+                            </div>
+                            <div class="total-row grand-total">
+                                <span>Total Amount</span>
+                                <span id="orderTotal">KES 0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-details">
+                        <h3>Delivery Information</h3>
+                        <div id="deliveryInfo">
+                            <!-- Delivery info will be loaded by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="confirmation-footer">
+                    <div class="next-steps">
+                        <h3>What Happens Next?</h3>
+                        <div class="steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Payment Verification</h4>
+                                    <p>Our team will call you shortly to verify payment to till number <strong>973528</strong></p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Order Processing</h4>
+                                    <p>We'll prepare your order at our Mwihoko store</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Delivery Dispatch</h4>
+                                    <p>Your order will be delivered to your provided address</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-reminder">
+                        <div class="reminder-icon">
+                            <i class="fas fa-phone-volume"></i>
+                        </div>
+                        <div class="reminder-content">
+                            <h4>Expect Our Call</h4>
+                            <p>Keep your phone nearby. We will call you on the number provided within 30 minutes.</p>
+                            <p class="phone-emphasis">Our Number: <strong>0768 918 899</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="confirmation-actions">
+                    <a href="products.html" class="btn btn-outline">
+                        <i class="fas fa-shopping-bag"></i> Continue Shopping
+                    </a>
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Reminder -->
+    <section class="payment-banner">
+        <div class="container">
+            <div class="banner-content">
+                <div class="banner-icon">
+                    <i class="fas fa-money-check-alt"></i>
+                </div>
+                <div class="banner-text">
+                    <h3>Payment to Till Number Required</h3>
+                    <p>To complete your order, please ensure you've paid to till number <strong>973528</strong>. Our call will verify this payment.</p>
+                </div>
+                <div class="banner-till">
+                    <span>Till Number</span>
+                    <h3>973528</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-wine-glass-alt"></i>
+                        <span>Mtaani Liquor Store</span>
+                    </div>
+                    <p class="footer-about">
+                        Premium liquor store serving Mwihoko with the finest selection of spirits, whiskey, wine and beers. Fast delivery available.
+                    </p>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-phone"></i> 0768 918 899</p>
+                        <p><i class="fas fa-envelope"></i> orders@mtaaniliquor.co.ke</p>
+                        <p><i class="fas fa-map-marker-alt"></i> PO Box 7145-00300 Nairobi</p>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="products.html?category=whiskey">Whiskey</a></li>
+                        <li><a href="products.html?category=spirits">Spirits</a></li>
+                        <li><a href="products.html?category=gin">Gin</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Store Locations</h3>
+                    <div class="location">
+                        <h4>Kizito Road Branch</h4>
+                        <p>Along Kizito Road, Mwihoko</p>
+                        <p>Open: 9AM - 10PM Daily</p>
+                    </div>
+                    <div class="location">
+                        <h4>160 Road Branch</h4>
+                        <p>160 Road, Mwihoko</p>
+                        <p>Open: 9AM - 11PM Fri-Sun</p>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Payment Info</h3>
+                    <div class="payment-info">
+                        <div class="till-highlight">
+                            <i class="fas fa-money-check"></i>
+                            <div>
+                                <p>Till Number</p>
+                                <h4>973528</h4>
+                            </div>
+                        </div>
+                        <p class="payment-note">Complete your order by paying to this till number. Our team will call to confirm delivery.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Mtaani Liquor Store. All rights reserved.</p>
+                <p class="footer-note">Drink Responsibly. Must be 18+ to purchase alcohol.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Load order data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get order data from localStorage or URL
+            let orderData = {};
+            
+            // Try to get from URL first
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderParam = urlParams.get('order');
+            
+            if (orderParam) {
+                try {
+                    orderData = JSON.parse(decodeURIComponent(orderParam));
+                } catch (e) {
+                    console.error('Error parsing order data from URL:', e);
+                }
+            }
+            
+            // If not in URL, try localStorage
+            if (!orderData || Object.keys(orderData).length === 0) {
+                const savedOrder = localStorage.getItem('latestOrder');
+                if (savedOrder) {
+                    try {
+                        orderData = JSON.parse(savedOrder);
+                    } catch (e) {
+                        console.error('Error parsing order data from localStorage:', e);
+                    }
+                }
+            }
+            
+            // If still no data, show demo data
+            if (!orderData || Object.keys(orderData).length === 0) {
+                orderData = {
+                    orderId: 'MTN-' + Date.now().toString().slice(-8),
+                    name: 'John Mwangi',
+                    phone: '0768 918 899',
+                    address: 'House 45, Kizito Road, Mwihoko',
+                    deliveryTime: 'asap',
+                    cart: [
+                        { name: 'Jameson Irish Whiskey', price: 2500, quantity: 1 },
+                        { name: 'Absolut Vodka', price: 1800, quantity: 2 }
+                    ],
+                    subtotal: 6100,
+                    deliveryFee: 200,
+                    total: 6300,
+                    orderDate: new Date().toLocaleString('en-KE')
+                };
+            }
+            
+            // Display order data
+            displayOrderData(orderData);
+        });
+        
+        function displayOrderData(orderData) {
+            // Update order ID
+            const orderIdElement = document.getElementById('orderId');
+            if (orderIdElement && orderData.orderId) {
+                orderIdElement.textContent = orderData.orderId;
+            }
+            
+            // Update order items
+            const orderItemsElement = document.getElementById('orderItems');
+            if (orderItemsElement && orderData.cart) {
+                orderItemsElement.innerHTML = orderData.cart.map(item => `
+                    <div class="order-item">
+                        <div class="item-name">${item.quantity}x ${item.name}</div>
+                        <div class="item-price">${formatCurrency(item.price * item.quantity)}</div>
+                    </div>
+                `).join('');
+            }
+            
+            // Update totals
+            const subtotalElement = document.getElementById('orderSubtotal');
+            const totalElement = document.getElementById('orderTotal');
+            
+            if (subtotalElement) {
+                subtotalElement.textContent = formatCurrency(orderData.subtotal || 0);
+            }
+            
+            if (totalElement) {
+                totalElement.textContent = formatCurrency(orderData.total || 0);
+            }
+            
+            // Update delivery info
+            const deliveryInfoElement = document.getElementById('deliveryInfo');
+            if (deliveryInfoElement) {
+                const deliveryTimeText = {
+                    'asap': 'As Soon As Possible',
+                    'morning': 'Morning (9AM - 12PM)',
+                    'afternoon': 'Afternoon (12PM - 5PM)',
+                    'evening': 'Evening (5PM - 9PM)'
+                };
+                
+                deliveryInfoElement.innerHTML = `
+                    <div class="info-row">
+                        <span>Name:</span>
+                        <span>${orderData.name || 'Not provided'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Phone:</span>
+                        <span>${orderData.phone || 'Not provided'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Delivery Address:</span>
+                        <span>${orderData.address || 'Not provided'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Preferred Time:</span>
+                        <span>${deliveryTimeText[orderData.deliveryTime] || 'As Soon As Possible'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Order Date:</span>
+                        <span>${orderData.orderDate || new Date().toLocaleString('en-KE')}</span>
+                    </div>
+                `;
+            }
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('confirmationModal');
+            if (modal) {
+                modal.style.opacity = '0';
+                modal.style.transition = 'opacity 0.3s ease';
+                
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            }
+        }
+        
+        // Show modal automatically after 1 second
+        setTimeout(() => {
+            const modal = document.getElementById('confirmationModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

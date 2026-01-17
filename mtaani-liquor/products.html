@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Mtaani Liquor Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/wine-glass.png">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-wine-glass-alt"></i>
+                    <span>Mtaani Liquor</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <div class="phone-number">
+                        <i class="fas fa-phone"></i>
+                        <span>0768 918 899</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Products Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Premium Selection</h1>
+            <p>Discover Mwihoko's finest collection of spirits, whiskey, wine and more</p>
+        </div>
+    </section>
+
+    <!-- Categories Filter -->
+    <section class="categories-filter">
+        <div class="container">
+            <div class="filter-container">
+                <h3>Filter by Category:</h3>
+                <div id="category-filter" class="filter-buttons">
+                    <!-- Categories will be loaded by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-section">
+        <div class="container">
+            <div id="products-container" class="products-grid">
+                <!-- Products will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Reminder -->
+    <section class="payment-reminder">
+        <div class="container">
+            <div class="reminder-card">
+                <div class="reminder-icon">
+                    <i class="fas fa-money-check-alt"></i>
+                </div>
+                <div class="reminder-content">
+                    <h3>Easy Payment Process</h3>
+                    <p>Add products to cart, provide delivery details, and pay via our till number.</p>
+                    <div class="till-display-large">
+                        <span>Till Number:</span>
+                        <h2>973528</h2>
+                    </div>
+                    <a href="cart.html" class="btn btn-primary">View Cart & Checkout</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-wine-glass-alt"></i>
+                        <span>Mtaani Liquor Store</span>
+                    </div>
+                    <p class="footer-about">
+                        Premium liquor store serving Mwihoko with the finest selection of spirits, whiskey, wine and beers. Fast delivery available.
+                    </p>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-phone"></i> 0768 918 899</p>
+                        <p><i class="fas fa-envelope"></i> orders@mtaaniliquor.co.ke</p>
+                        <p><i class="fas fa-map-marker-alt"></i> PO Box 7145-00300 Nairobi</p>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="products.html?category=whiskey">Whiskey</a></li>
+                        <li><a href="products.html?category=spirits">Spirits</a></li>
+                        <li><a href="products.html?category=gin">Gin</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Store Locations</h3>
+                    <div class="location">
+                        <h4>Kizito Road Branch</h4>
+                        <p>Along Kizito Road, Mwihoko</p>
+                        <p>Open: 9AM - 10PM Daily</p>
+                    </div>
+                    <div class="location">
+                        <h4>160 Road Branch</h4>
+                        <p>160 Road, Mwihoko</p>
+                        <p>Open: 9AM - 11PM Fri-Sun</p>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Payment Info</h3>
+                    <div class="payment-info">
+                        <div class="till-highlight">
+                            <i class="fas fa-money-check"></i>
+                            <div>
+                                <p>Till Number</p>
+                                <h4>973528</h4>
+                            </div>
+                        </div>
+                        <p class="payment-note">Complete your order by paying to this till number. Our team will call to confirm delivery.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Mtaani Liquor Store. All rights reserved.</p>
+                <p class="footer-note">Drink Responsibly. Must be 18+ to purchase alcohol.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Notification -->
+    <div id="cart-notification" class="cart-notification">
+        <span>Item added to cart!</span>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>

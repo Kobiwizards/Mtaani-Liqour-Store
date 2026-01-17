@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Mtaani Liquor Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/wine-glass.png">
+    <style>
+        /* Contact Page Specific Styles */
+        .page-header {
+            background: linear-gradient(rgba(26, 35, 126, 0.9), rgba(13, 20, 64, 0.9)), 
+                        url('https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--light-color);
+            padding: 140px 0 80px;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-section {
+            padding: 3rem 0 5rem;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 1.5rem;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(68, 138, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .contact-details p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .contact-link:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .contact-note {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        .store-location {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .store-location:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .store-location h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .store-location p {
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .store-location i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+
+        .till-display-contact {
+            text-align: center;
+            background-color: rgba(68, 138, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+        }
+
+        .till-display-contact p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .till-display-contact h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .till-note {
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+            line-height: 1.5;
+        }
+
+        .delivery-info {
+            margin-top: 1rem;
+        }
+
+        .delivery-info li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .delivery-info i {
+            color: var(--success-color);
+            margin-top: 0.2rem;
+        }
+
+        /* Contact Form */
+        .contact-form-container {
+            position: sticky;
+            top: 100px;
+        }
+
+        .form-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .form-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .form-card p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-dark);
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+        }
+
+        /* Hours Section */
+        .hours-section {
+            padding: 5rem 0;
+            background-color: var(--gray-light);
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hours-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .hours-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .hours-list {
+            margin-bottom: 1.5rem;
+        }
+
+        .hour-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .hour-row:last-child {
+            border-bottom: none;
+        }
+
+        .hour-row span:first-child {
+            font-weight: 600;
+            color: var(--gray-dark);
+        }
+
+        .hours-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--gray-light);
+        }
+
+        .hours-note i {
+            color: var(--accent-color);
+        }
+
+        .hours-note p {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 5rem 0;
+        }
+
+        .map-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .map-card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .map-card p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .map-placeholder {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            color: white;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-content {
+            max-width: 600px;
+        }
+
+        .map-content i {
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .map-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .map-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .map-addresses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .map-address {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            text-align: left;
+        }
+
+        .map-address h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .map-address p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 992px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form-container {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-icon {
+                margin: 0 auto;
+            }
+            
+            .map-card,
+            .form-card {
+                padding: 2rem;
+            }
+            
+            .map-placeholder {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-wine-glass-alt"></i>
+                    <span>Mtaani Liquor</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <div class="phone-number">
+                        <i class="fas fa-phone"></i>
+                        <span>0768 918 899</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Contact Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Contact Mtaani Liquor Store</h1>
+            <p>Get in touch for deliveries, inquiries, or visit our stores in Mwihoko</p>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-layout">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Call Us</h3>
+                            <p>For orders, deliveries, or inquiries</p>
+                            <a href="tel:0768918899" class="contact-link">
+                                <i class="fas fa-phone"></i> 0768 918 899
+                            </a>
+                            <p class="contact-note">Call or WhatsApp for fast response</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Visit Our Stores</h3>
+                            <div class="store-location">
+                                <h4>Kizito Road Branch</h4>
+                                <p>Along Kizito Road, Mwihoko</p>
+                                <p><i class="fas fa-clock"></i> Open: 9AM - 10PM Daily</p>
+                            </div>
+                            <div class="store-location">
+                                <h4>160 Road Branch</h4>
+                                <p>160 Road, Mwihoko</p>
+                                <p><i class="fas fa-clock"></i> Open: 9AM - 11PM (Fri-Sun)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Payment Information</h3>
+                            <div class="till-display-contact">
+                                <p>Pay via M-Pesa:</p>
+                                <h2>Paybill: 453988</h2>
+                                <p>Account: Customer's Name</p>
+                                <p class="till-note">Use your name as account number. We'll verify payment when we call for delivery confirmation.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Delivery Service</h3>
+                            <p>We deliver to Mwihoko and surrounding areas</p>
+                            <ul class="delivery-info">
+                                <li><i class="fas fa-check-circle"></i> Fast delivery within 1-2 hours</li>
+                                <li><i class="fas fa-check-circle"></i> Delivery fee: KES 200</li>
+                                <li><i class="fas fa-check-circle"></i> Minimum order: KES 1000</li>
+                                <li><i class="fas fa-check-circle"></i> Cash on delivery available</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <div class="form-card">
+                        <h2>Send Us a Message</h2>
+                        <p>Have questions? Send us a message and we'll get back to you shortly.</p>
+                        
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-group">
+                                <label for="contact-name">Your Name *</label>
+                                <input type="text" id="contact-name" name="name" required placeholder="John Mwangi">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-phone">Phone Number *</label>
+                                <input type="tel" id="contact-phone" name="phone" required placeholder="0768 918 899">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-email">Email Address</label>
+                                <input type="email" id="contact-email" name="email" placeholder="john@example.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-subject">Subject</label>
+                                <select id="contact-subject" name="subject">
+                                    <option value="delivery">Delivery Inquiry</option>
+                                    <option value="product">Product Availability</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="corporate">Corporate Orders</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-message">Your Message *</label>
+                                <textarea id="contact-message" name="message" required rows="5" placeholder="Type your message here..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                            
+                            <p class="form-note">
+                                <i class="fas fa-info-circle"></i> We typically respond within 30 minutes during business hours.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Store Hours -->
+    <section class="hours-section">
+        <div class="container">
+            <h2 class="section-title">Store Hours</h2>
+            <p class="section-subtitle">Visit us at our convenient locations</p>
+            
+            <div class="hours-grid">
+                <div class="hours-card">
+                    <h3>Kizito Road Store</h3>
+                    <div class="hours-list">
+                        <div class="hour-row">
+                            <span>Monday - Thursday</span>
+                            <span>9:00 AM - 10:00 PM</span>
+                        </div>
+                        <div class="hour-row">
+                            <span>Friday</span>
+                            <span>9:00 AM - 11:00 PM</span>
+                        </div>
+                        <div class="hour-row">
+                            <span>Saturday</span>
+                            <span>9:00 AM - 11:00 PM</span>
+                        </div>
+                        <div class="hour-row">
+                            <span>Sunday</span>
+                            <span>9:00 AM - 10:00 PM</span>
+                        </div>
+                    </div>
+                    <div class="hours-note">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Along Kizito Road, Mwihoko</p>
+                    </div>
+                </div>
+                
+                <div class="hours-card">
+                    <h3>160 Road Store</h3>
+                    <div class="hours-list">
+                        <div class="hour-row">
+                            <span>Monday - Thursday</span>
+                            <span>9:00 AM - 10:00 PM</span>
+                        </div>
+                        <div class="hour-row">
+                            <span>Friday</span>
+                            <span>9:00 AM - 11:00 PM</span>
+                        </div>
+                        <div class="hour-row">
+                            <span>Saturday</span>
+                            <span>9:00 AM - 11:00 PM</span>
+                        </div>
+                        <div class="hour-row">
+                            <span>Sunday</span>
+                            <span>9:00 AM - 11:00 PM</span>
+                        </div>
+                    </div>
+                    <div class="hours-note">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>160 Road, Mwihoko</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <div class="map-card">
+                <h2>Find Our Stores</h2>
+                <p>We're conveniently located in Mwihoko with two branches to serve you better.</p>
+                
+                <div class="map-placeholder">
+                    <div class="map-content">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3>Mwihoko, Kiambu County</h3>
+                        <p>Our stores are located along Kizito Road and 160 Road in Mwihoko.</p>
+                        <div class="map-addresses">
+                            <div class="map-address">
+                                <h4>Kizito Road Store:</h4>
+                                <p>Along Kizito Road, Mwihoko</p>
+                            </div>
+                            <div class="map-address">
+                                <h4>160 Road Store:</h4>
+                                <p>160 Road, Mwihoko</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-wine-glass-alt"></i>
+                        <span>Mtaani Liquor Store</span>
+                    </div>
+                    <p class="footer-about">
+                        Premium liquor store serving Mwihoko with the finest selection of spirits, whiskey, wine and beers. Fast delivery available.
+                    </p>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-phone"></i> 0768 918 899</p>
+                        <p><i class="fas fa-envelope"></i> orders@mtaaniliquor.co.ke</p>
+                        <p><i class="fas fa-map-marker-alt"></i> PO Box 7145-00300 Nairobi</p>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="products.html?category=whiskey">Whiskey</a></li>
+                        <li><a href="products.html?category=spirits">Spirits</a></li>
+                        <li><a href="products.html?category=gin">Gin</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Store Locations</h3>
+                    <div class="location">
+                        <h4>Kizito Road Branch</h4>
+                        <p>Along Kizito Road, Mwihoko</p>
+                        <p>Open: 9AM - 10PM Daily</p>
+                    </div>
+                    <div class="location">
+                        <h4>160 Road Branch</h4>
+                        <p>160 Road, Mwihoko</p>
+                        <p>Open: 9AM - 11PM Fri-Sun</p>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Payment Info</h3>
+                    <div class="payment-info">
+                        <div class="till-highlight">
+                            <i class="fas fa-mobile-alt"></i>
+                            <div>
+                                <p>M-Pesa Paybill</p>
+                                <h4>453988</h4>
+                                <p>Account: Your Name</p>
+                            </div>
+                        </div>
+                        <p class="payment-note">Complete your order by paying via M-Pesa. Our team will call to confirm delivery.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Mtaani Liquor Store. All rights reserved.</p>
+                <p class="footer-note">Drink Responsibly. Must be 18+ to purchase alcohol.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Notification -->
+    <div id="cart-notification" class="cart-notification">
+        <span>Item added to cart!</span>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Contact form handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update cart count
+            updateCartCount();
+            
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    this.querySelector('i').classList.toggle('fa-bars');
+                    this.querySelector('i').classList.toggle('fa-times');
+                });
+            }
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = {
+                        name: document.getElementById('contact-name').value,
+                        phone: document.getElementById('contact-phone').value,
+                        email: document.getElementById('contact-email').value || 'Not provided',
+                        subject: document.getElementById('contact-subject').value,
+                        message: document.getElementById('contact-message').value,
+                        timestamp: new Date().toLocaleString('en-KE')
+                    };
+                    
+                    // Validate
+                    if (!formData.name || !formData.phone || !formData.message) {
+                        alert('Please fill in all required fields (Name, Phone, Message).');
+                        return;
+                    }
+                    
+                    // Phone validation
+                    const phoneRegex = /^[0-9\-\+\s\(\)]{10,}$/;
+                    if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
+                        alert('Please enter a valid phone number.');
+                        return;
+                    }
+                    
+                    // Save to localStorage (for demo)
+                    const contacts = JSON.parse(localStorage.getItem('mtaaniContacts') || '[]');
+                    contacts.push(formData);
+                    localStorage.setItem('mtaaniContacts', JSON.stringify(contacts));
+                    
+                    // Show success message
+                    alert('Thank you for your message! We will contact you shortly.');
+                    
+                    // Reset form
+                    contactForm.reset();
+                });
+            }
+        });
+        
+        // Cart functions (same as in main.js)
+        function updateCartCount() {
+            const cart = localStorage.getItem('mtaaniCart');
+            const cartData = cart ? JSON.parse(cart) : [];
+            const totalItems = cartData.reduce((sum, item) => sum + item.quantity, 0);
+            
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(element => {
+                element.textContent = totalItems;
+                element.style.display = totalItems > 0 ? 'flex' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
