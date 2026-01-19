@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: mtaani-liquor
+    name: mtaani-liqour-store  # MATCHES YOUR RENDER PROJECT NAME
     env: static
     buildCommand: ""
     staticPublishPath: .

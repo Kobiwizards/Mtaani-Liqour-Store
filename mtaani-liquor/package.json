@@ -4,27 +4,21 @@
   "description": "Mtaani Liquor Store - Premium spirits delivery website",
   "main": "index.html",
   "scripts": {
-    "start": "echo 'Static site - no server required'",
-    "build": "echo 'No build step required for static site'",
-    "test": "echo 'No tests configured'",
-    "deploy": "echo 'Push to GitHub to deploy to Render'"
+    "start": "echo 'Static site - open index.html'",
+    "build": "echo 'No build required'"
   },
   "keywords": [
     "liquor-store",
-    "ecommerce",
     "delivery",
-    "kenya",
-    "mwihoko"
+    "kenya"
   ],
   "author": "Mtaani Liquor Store",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/mtaani-liquor.git"
+    "url": "https://github.com/kobira/mtaani-liquor.git"
   },
   "engines": {
     "node": ">=14.0.0"
-  },
-  "dependencies": {},
-  "devDependencies": {}
+  }
 }
